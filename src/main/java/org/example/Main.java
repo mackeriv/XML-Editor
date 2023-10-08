@@ -2,6 +2,7 @@ package org.example;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -20,31 +21,62 @@ import static org.example.XmlUtil.asList;
 
 public class Main {
 
+    static Document doc;
+    static String tagToChange;
+    static String change = null;
+
     public static void main(String[] args) {
 
+        Scanner in = new Scanner(System.in);
+        String filepath;
+        int option;
+
+        System.out.println("Please provide the filepath for the XML file to be edited or enter \"Q\" to quit: ");
+
+        filepath = in.nextLine();
+
+        System.out.println("Choose \"1\" to change tag names or \"2\" to change tag contents: ");
+
+        option = in.nextInt();
+
+        System.out.println("Enter the name of the tag to be edited: ");
+
+        tagToChange = in.nextLine();
+
+        switch (option) {
+
+            case 1:
+                System.out.println("Enter a new name for the tag: ");
+                change = in.nextLine();
+                break;
+
+            case 2:
+                System.out.println("Enter the text to replace the contents of the tag: ");
+                change = in.nextLine();
+                break;
+
+            default:
+                System.out.println("error");
+
+        }
+
         try {
-            String filepath = "src/main/resources/products.xml";
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory
-                    .newInstance();
+            // Prepare a XML document for editing
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             Document doc = docBuilder.parse(filepath);
 
-            // Get the root element
-            Node data= doc.getFirstChild();
-
-            Node startdate = doc.getElementsByTagName("startdate").item(0);
-
             // Changes tag content
-            startdate.setTextContent("aaa");
+            Node startdate = doc.getElementsByTagName(tagToChange).item(0);
+            startdate.setTextContent(change);
 
             // Changes tag name
-            for(Node n: asList(doc.getElementsByTagName("interval"))) {
-                doc.renameNode(n, null, "reallyCoolTag");
+            for(Node n: asList(doc.getElementsByTagName(tagToChange))) {
+                doc.renameNode(n, null, change);
             }
 
-            // write the content into xml file
-            TransformerFactory transformerFactory = TransformerFactory
-                    .newInstance();
+            // Overwrites the XML file with the changes applied
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(new File(filepath));
@@ -66,4 +98,23 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+    private static boolean changeTagName() {
+        // Changes tag name
+        for (Node n : asList(doc.getElementsByTagName(tagToChange))) {
+            doc.renameNode(n, null, change);
+        }
+        return true;
+    }
+
+    private static boolean changeTagContents() {
+        // Changes tag content
+        Node startdate = doc.getElementsByTagName(tagToChange).item(0);
+        startdate.setTextContent(change);
+
+        return true;
+    }
+
+
+
 }
