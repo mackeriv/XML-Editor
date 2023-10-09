@@ -24,12 +24,12 @@ public class Main {
     static Document doc;
     static String tagToChange;
     static String change = null;
+    static String filepath;
 
     public static void main(String[] args) {
 
         Scanner in = new Scanner(System.in);
-        String filepath;
-        int option;
+        int option = 0;
 
         System.out.println("Please provide the filepath for the XML file to be edited or enter \"Q\" to quit: ");
 
@@ -37,7 +37,11 @@ public class Main {
 
         System.out.println("Choose \"1\" to change tag names or \"2\" to change tag contents: ");
 
-        option = in.nextInt();
+        try {
+            option = Integer.parseInt(in.nextLine());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
 
         System.out.println("Enter the name of the tag to be edited: ");
 
@@ -48,11 +52,17 @@ public class Main {
             case 1:
                 System.out.println("Enter a new name for the tag: ");
                 change = in.nextLine();
+
+                docBuild();
+                changeTagName();
                 break;
 
             case 2:
                 System.out.println("Enter the text to replace the contents of the tag: ");
                 change = in.nextLine();
+
+                docBuild();
+                changeTagContents();
                 break;
 
             default:
@@ -61,19 +71,6 @@ public class Main {
         }
 
         try {
-            // Prepare a XML document for editing
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-            Document doc = docBuilder.parse(filepath);
-
-            // Changes tag content
-            Node startdate = doc.getElementsByTagName(tagToChange).item(0);
-            startdate.setTextContent(change);
-
-            // Changes tag name
-            for(Node n: asList(doc.getElementsByTagName(tagToChange))) {
-                doc.renameNode(n, null, change);
-            }
 
             // Overwrites the XML file with the changes applied
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -84,10 +81,20 @@ public class Main {
 
             System.out.println("Done");
 
-        } catch (ParserConfigurationException e) {
+        } catch (TransformerException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (TransformerException e) {
+        }
+    }
+
+    private static boolean docBuild() {
+
+        // Prepare a XML document for editing
+        try {
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            doc = docBuilder.parse(filepath);
+        } catch (ParserConfigurationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (SAXException e) {
@@ -97,6 +104,7 @@ public class Main {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return false;
     }
 
     private static boolean changeTagName() {
