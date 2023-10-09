@@ -87,7 +87,7 @@ public class Main {
         }
     }
 
-    private static boolean docBuild() {
+    private static void docBuild() {
 
         // Prepare a XML document for editing
         try {
@@ -104,25 +104,19 @@ public class Main {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return false;
     }
 
-    private static boolean changeTagName() {
+    private static void changeTagName() {
         // Changes tag name
         for (Node n : asList(doc.getElementsByTagName(tagToChange))) {
             doc.renameNode(n, null, change);
         }
-        return true;
     }
 
-    private static boolean changeTagContents() {
+    private static void changeTagContents() {
         // Changes tag content
-        Node startdate = doc.getElementsByTagName(tagToChange).item(0);
-        startdate.setTextContent(change);
-
-        return true;
+        Node tagName = doc.getElementsByTagName(tagToChange).item(0);
+        tagName.setTextContent(change);
     }
-
-
 
 }
