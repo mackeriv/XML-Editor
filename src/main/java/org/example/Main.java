@@ -55,6 +55,7 @@ public class Main {
 
                 docBuild();
                 changeTagName();
+                fileWriter();
                 break;
 
             case 2:
@@ -63,28 +64,32 @@ public class Main {
 
                 docBuild();
                 changeTagContents();
+                fileWriter();
                 break;
 
             default:
                 System.out.println("error");
+                break;
 
         }
+    }
 
-        try {
+    private static void fileWriter() {
 
-            // Overwrites the XML file with the changes applied
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(filepath));
-            transformer.transform(source, result);
+            try {
 
-            System.out.println("Done");
+                // Overwrites the XML file with the changes applied
+                TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                Transformer transformer = transformerFactory.newTransformer();
+                DOMSource source = new DOMSource(doc);
+                StreamResult result = new StreamResult(new File(filepath));
+                transformer.transform(source, result);
+                System.out.println("Changes made successfully");
 
-        } catch (TransformerException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+            } catch (TransformerException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
     }
 
     private static void docBuild() {

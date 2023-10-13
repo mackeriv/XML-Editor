@@ -3,6 +3,8 @@ package org.example;
 import java.util.*;
 import org.w3c.dom.*;
 
+// workaround from https://stackoverflow.com/a/19591302/22175138
+// working via static import
 public final class XmlUtil {
 
     private XmlUtil(){}
