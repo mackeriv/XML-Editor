@@ -17,10 +17,10 @@ public class Main {
 
         System.out.println("Please provide the filepath for the XML file to be edited or enter \"Q\" to quit: ");
 
+        filepath = in.nextLine();
+
         outerloop:
         while (true) {
-
-            filepath = in.nextLine();
 
             //quits the application
             if (filepath.equalsIgnoreCase("Q")) {
@@ -35,7 +35,8 @@ public class Main {
             try {
                 option = Integer.parseInt(in.nextLine());
             } catch (NumberFormatException e) {
-                e.printStackTrace();
+                System.out.println("\nGoodbye!");
+                break;
             }
 
             System.out.println("Enter the name of the tag to be edited: ");
@@ -51,7 +52,7 @@ public class Main {
                     FileOps.docBuild();
                     ChangeOps.changeTagName();
                     FileOps.fileWriter();
-                    break outerloop;
+                    continue;
 
                 case 2:
                     System.out.println("Enter the text to replace the contents of the tag: ");
@@ -60,7 +61,7 @@ public class Main {
                     FileOps.docBuild();
                     ChangeOps.changeTagContents();
                     FileOps.fileWriter();
-                    break outerloop;
+                    continue;
 
                 default:
                     System.out.println("ERROR");
