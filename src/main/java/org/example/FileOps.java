@@ -25,7 +25,7 @@ public class FileOps {
             DOMSource source = new DOMSource(Main.doc);
             StreamResult result = new StreamResult(new File(Main.filepath));
             transformer.transform(source, result);
-            System.out.println("Changes made successfully\n");
+            System.out.println("\nChanges made successfully\n");
 
         } catch (TransformerException e) {
             // TODO Auto-generated catch block
