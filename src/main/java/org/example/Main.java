@@ -7,7 +7,7 @@ public class Main {
 
     static Document doc;
     static String tagToChange;
-    static String change = null;
+    static String change;
     public static String filepath;
 
     public static void main(String[] args) {
@@ -53,7 +53,7 @@ public class Main {
                     System.out.println("\nEnter a new name for the tag: ");
                     change = in.nextLine();
 
-                    FileOps.docBuild();
+                    FileOps.buildDocument();
                     ChangeOps.changeTagName();
                     FileOps.fileWriter();
                     continue;
@@ -62,7 +62,7 @@ public class Main {
                     System.out.println("\nEnter the text to replace the contents of the tag: ");
                     change = in.nextLine();
 
-                    FileOps.docBuild();
+                    FileOps.buildDocument();
                     ChangeOps.changeTagContents();
                     FileOps.fileWriter();
 
