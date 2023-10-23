@@ -56,11 +56,22 @@ public class Main {
 
             tagToChange = in.nextLine();
 
+            //quits the application
+            if (tagToChange.equalsIgnoreCase("Q")) {
+                System.out.println("\nGoodbye!");
+                break;
+            }
+
             switch (option) {
 
                 case 1:
                     System.out.println("\nEnter a new name for the tag: ");
                     change = in.nextLine();
+
+                    if (change.equalsIgnoreCase("Q")) {
+                        System.out.println("\nGoodbye!");
+                        break;
+                    }
 
                     FileOps.buildDocument();
                     ChangeOps.changeTagName();
@@ -71,10 +82,14 @@ public class Main {
                     System.out.println("\nEnter the text to replace the contents of the tag: ");
                     change = in.nextLine();
 
+                    if (change.equalsIgnoreCase("Q")) {
+                        System.out.println("\nGoodbye!");
+                        break;
+                    }
+
                     FileOps.buildDocument();
                     ChangeOps.changeTagContents();
                     FileOps.fileWriter();
-
             }
         }
     }
