@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><data>
-    <username>admin</username>
-    <password>12345</password>
-    <interval>1</interval>
-    <timeout>90</timeout>
+    <username>user</username>
+    <pass>12345</pass>
+    <int>1</int>
+    <timeout>time</timeout>
     <startdate>01/01/2013</startdate>
-    <enddate>06/01/2013</enddate>
+    <blend>aaa</blend>
     <ttime>1110</ttime>
 </data>
