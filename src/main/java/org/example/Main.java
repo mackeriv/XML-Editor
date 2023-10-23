@@ -13,6 +13,7 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner in = new Scanner(System.in);
+        String optQuit;
         int option;
 
         System.out.println("Please provide the filepath for the XML file to be edited or enter \"Q\" to quit: ");
@@ -29,10 +30,18 @@ public class Main {
 
             System.out.println("\nChoose \"1\" to change tag names or \"2\" to change tag contents: ");
 
+            optQuit = in.nextLine();
+
+            //quits the application
+            if (optQuit.equalsIgnoreCase("Q")) {
+                System.out.println("\nGoodbye!");
+                break;
+            }
+
             // "input.nextInt()" can't be used in this context, so this is a workaround for parsing the input to int
             // workaround: https://stackoverflow.com/a/13102066/22175138
             try {
-                option = Integer.parseInt(in.nextLine());
+                option = Integer.parseInt(optQuit);
             } catch (NumberFormatException e) {
                 System.out.println("\nInvalid input.");
                 continue;
